@@ -17,6 +17,7 @@ namespace Services.Catalog.Controllers
             _courseService = courseService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var response = await _courseService.GetAllAsync();
@@ -30,10 +31,11 @@ namespace Services.Catalog.Controllers
             return CreateActionResultInstance(response);
         }
 
-        [Route("api/[controller]/GetAllByUserId/{userId}")]
+        [HttpGet]
+        [Route("GetAllByUserId/{userId}")]
         public async Task<IActionResult> GetAllByUserId(string userId)
         {
-            var response = await _courseService.GetByIdAsync(userId);
+            var response = await _courseService.GetAllByUserId(userId);
             return CreateActionResultInstance(response);
         }
 
