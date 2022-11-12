@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Services.Catalog.Services;
 using Services.Catalog.Settings;
 
 namespace Services.Catalog
@@ -23,6 +24,7 @@ namespace Services.Catalog
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddSingleton<IDatabaseSettings>(sp =>
             {
                 return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
