@@ -11,6 +11,8 @@ namespace IdentityServer
         {
             new ApiResource("resource_catalog"){Scopes={"catalog_fullpermission"}},
             new ApiResource("resource_photo_stock"){Scopes={"photo_stock_fullpermission"}},
+            new ApiResource("resource_basket"){Scopes={"basket_fullpermission"}},
+
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -34,6 +36,8 @@ namespace IdentityServer
             {
                 new ApiScope("catalog_fullpermission", "Catalog api için full erişim"),
                 new ApiScope("photo_stock_fullpermission", "Photo_stock api için full erişim"),
+                new ApiScope("basket_fullpermission", "Basket api için full erişim"),
+
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName),
             };
 
@@ -67,7 +71,8 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
                         IdentityServerConstants.LocalApi.ScopeName,
-                        "roles"
+                        "roles",
+                        "basket_fullpermission"
                     },
                     AccessTokenLifetime = 1*60*60,
                     RefreshTokenExpiration = TokenExpiration.Absolute,
