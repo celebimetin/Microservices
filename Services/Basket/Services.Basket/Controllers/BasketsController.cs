@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Services.Basket.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class BasketsController : CustomBaseController
     {
@@ -23,20 +23,20 @@ namespace Services.Basket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBasket()
         {
-            return CreateActionResultInstance(await _basketService.GetBasket(_sharedIdentityService.GetUserId));
+            return CreateActionResultInstance(await _basketService.GetBasketAsync(_sharedIdentityService.GetUserId));
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveOrUpdateBasket(BasketDto basketDto)
+        public async Task<IActionResult> CreateOrUpdateBasket(BasketDto basketDto)
         {
-            var response = await _basketService.SaveOrUpdate(basketDto);
+            var response = await _basketService.CreateOrUpdateAsync(basketDto);
             return CreateActionResultInstance(response);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> SaveOrUpdateBasket()
+        public async Task<IActionResult> DeleteBasket()
         {
-            return CreateActionResultInstance(await _basketService.Delete(_sharedIdentityService.GetUserId));
+            return CreateActionResultInstance(await _basketService.DeleteAsync(_sharedIdentityService.GetUserId));
         }
     }
 }

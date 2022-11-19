@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services.Catalog.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CoursesController : CustomBaseController
     {
@@ -32,7 +32,7 @@ namespace Services.Catalog.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllByUserId/{userId}")]
+        [Route("{userId}")]
         public async Task<IActionResult> GetAllByUserId(string userId)
         {
             var response = await _courseService.GetAllByUserId(userId);

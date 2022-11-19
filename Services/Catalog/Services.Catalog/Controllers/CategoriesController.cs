@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services.Catalog.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CategoriesController : CustomBaseController
     {

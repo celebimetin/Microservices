@@ -6,14 +6,12 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using Services.Basket.Services;
-using Services.Basket.Settings;
+using Services.Discount.Services;
 using Shared.Services;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Services.Basket
+namespace Services.Discount
 {
     public class Startup
     {
@@ -29,31 +27,22 @@ namespace Services.Basket
             var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
 
-            services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<IDiscountService, DiscountService>();
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddHttpContextAccessor();
-
             services.AddControllers(options =>
             {
                 options.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
             });
-            services.Configure<RedisSettings>(Configuration.GetSection("RedisSettings"));
-            services.AddSingleton<RedisService>(sp =>
-            {
-                var redisSettings = sp.GetRequiredService<IOptions<RedisSettings>>().Value;
-                var redis = new RedisService(redisSettings.Host, redisSettings.Port);
-                redis.Connect();
-                return redis;
-            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.Authority = Configuration["IdentityServerUrl"];
-                options.Audience = "resource_basket";
+                options.Audience = "resource_discount";
                 options.RequireHttpsMetadata = false;
             });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Services.Basket", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Services.Discount", Version = "v1" });
             });
         }
 
@@ -63,7 +52,7 @@ namespace Services.Basket
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Services.Basket v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Services.Discount v1"));
             }
 
             app.UseRouting();
