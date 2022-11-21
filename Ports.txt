@@ -1,5 +1,7 @@
-IdentityServer > https://localhost:5001
 Gateway > http://localhost:5000
+IdentityServer > https://localhost:5001
+
+WebApp > http://localhost:5010
 
 ***Services***
 CatalogAPI > http://localhost:5011

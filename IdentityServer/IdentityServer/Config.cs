@@ -54,7 +54,7 @@ namespace IdentityServer
             {
                 new Client
                 {
-                    ClientName = "Asp.NET Core Mvc",
+                    ClientName = "Web Client",
                     ClientId = "ClientCredentials",
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
@@ -68,7 +68,7 @@ namespace IdentityServer
                 },
                 new Client
                 {
-                    ClientName = "Asp.NET Core Mvc",
+                    ClientName = "Web Client For User",
                     ClientId = "ResourceOwnerPassword",
                     AllowOfflineAccess = true,
                     ClientSecrets = { new Secret("secret".Sha256()) },
