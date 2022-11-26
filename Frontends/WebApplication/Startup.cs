@@ -27,6 +27,7 @@ namespace WebApplication
 
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
+            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
             services.AddHttpContextAccessor();
             services.AddHttpClient<IIdentityService, IdentityService>();
             services.AddHttpClient<IUserService, UserService>(options =>

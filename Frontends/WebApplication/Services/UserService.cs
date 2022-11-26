@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using WebApplication.Models;
@@ -18,7 +17,7 @@ namespace WebApplication.Services
 
         public async Task<UserViewModel> GetUser()
         {
-            return await _httpClient.GetFromJsonAsync<UserViewModel>("/api/user/getuser");
+            return await _httpClient.GetFromJsonAsync<UserViewModel>("/api/users/getuser");
         }
     }
 }
