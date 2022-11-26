@@ -32,7 +32,6 @@ namespace WebApplication.Services
             _serviceApiSettings = serviceApiSettings.Value;
         }
 
-
         public async Task<TokenResponse> GetAccessTokenByRefreshToken()
         {
             var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest

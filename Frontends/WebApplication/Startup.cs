@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shared.Services;
 using System;
 using WebApplication.Handlers;
 using WebApplication.Models;
@@ -25,15 +26,27 @@ namespace WebApplication
         {
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 
+            services.AddHttpContextAccessor();
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
             services.AddScoped<ResourceOwnerPasswordTokenHandler>();
-            services.AddHttpContextAccessor();
+            services.AddScoped<ClientCredentialTokenHandler>();
+            services.AddAccessTokenManagement();
+            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+
+            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
             services.AddHttpClient<IIdentityService, IdentityService>();
+
+            services.AddHttpClient<ICatalogService, CatalogService>(options =>
+            {
+                options.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
             services.AddHttpClient<IUserService, UserService>(options =>
             {
                 options.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
-            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+            })
+                .AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
             {
