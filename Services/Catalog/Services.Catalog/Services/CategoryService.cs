@@ -25,7 +25,7 @@ namespace Services.Catalog.Services
 
         public async Task<Response<List<CategoryDto>>> GetAllAsync()
         {
-            var categories = await _categoryCollection.Find(category => true).ToListAsync();
+            var categories = await _categoryCollection.Find<Category>(category => true).ToListAsync();
             return Response<List<CategoryDto>>.Success(_mapper.Map<List<CategoryDto>>(categories), 200);
         }
 

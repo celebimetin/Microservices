@@ -19,7 +19,7 @@ namespace WebApplication.Services
 
         public async Task<List<CourseViewModel>> GetAllAsync()
         {
-            var response = await _httpClient.GetAsync("courses");
+            var response = await _httpClient.GetAsync("courses/GetAll");
             if (!response.IsSuccessStatusCode) return null;
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
             return responseSuccess.Data;
@@ -27,7 +27,7 @@ namespace WebApplication.Services
 
         public async Task<List<CategoryViewModel>> GetAllCategoryAsync()
         {
-            var response = await _httpClient.GetAsync("categories");
+            var response = await _httpClient.GetAsync("categories/GetAll");
             if (!response.IsSuccessStatusCode) return null;
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<List<CategoryViewModel>>>();
             return responseSuccess.Data;
@@ -51,19 +51,19 @@ namespace WebApplication.Services
 
         public async Task<bool> CreateCourseAsync(CourseCreateInput courseCreateInput)
         {
-            var response = await _httpClient.PostAsJsonAsync<CourseCreateInput>("courses", courseCreateInput);
+            var response = await _httpClient.PostAsJsonAsync<CourseCreateInput>("courses/Create", courseCreateInput);
             return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> UpdateCourseAsync(CourseUpdateInput courseUpdateInput)
         {
-            var response = await _httpClient.PutAsJsonAsync<CourseUpdateInput>("courses", courseUpdateInput);
+            var response = await _httpClient.PutAsJsonAsync<CourseUpdateInput>("courses/Update", courseUpdateInput);
             return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> DeleteCourseAsync(string courseId)
         {
-            var response = await _httpClient.DeleteAsync($"courses/Delete{courseId}");
+            var response = await _httpClient.DeleteAsync($"courses/Delete/{courseId}");
             return response.IsSuccessStatusCode;
         }
     }
