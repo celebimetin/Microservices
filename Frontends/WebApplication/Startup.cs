@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Shared.Services;
 using System;
 using WebApplication.Handlers;
+using WebApplication.Helpers;
 using WebApplication.Models;
 using WebApplication.Services;
 using WebApplication.Services.Interfaces;
@@ -32,6 +33,7 @@ namespace WebApplication
             services.AddScoped<ResourceOwnerPasswordTokenHandler>();
             services.AddScoped<ClientCredentialTokenHandler>();
             services.AddAccessTokenManagement();
+            services.AddSingleton<PhotoHelper>();
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 
             services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
@@ -40,6 +42,11 @@ namespace WebApplication
             services.AddHttpClient<ICatalogService, CatalogService>(options =>
             {
                 options.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+            services.AddHttpClient<IPhotoStockService, PhotoStockService>(options =>
+            {
+                options.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.PhotoStock.Path}");
             }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
             services.AddHttpClient<IUserService, UserService>(options =>

@@ -43,25 +43,28 @@ namespace WebApplication.Controllers
             courseCreateInput.UserId = _sharedIdentityService.GetUserId;
 
             await _catalogService.CreateCourseAsync(courseCreateInput);
-            return RedirectToAction(nameof(Index), "Courses");
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Update(string id)
         {
             var course = await _catalogService.GetByCourseId(id);
-            if (course == null) return View();
             var categories = await _catalogService.GetAllCategoryAsync();
+
+            if (course == null) RedirectToAction(nameof(Index));
+            
             ViewBag.categoryList = new SelectList(categories, "Id", "Name", course.Id);
 
             CourseUpdateInput courseUpdateInput = new()
             {
                 Id = course.Id,
-                Name=course.Name,
+                Name = course.Name,
                 Price = course.Price,
                 Feature = course.Feature,
                 CategoryId = course.CategoryId,
                 UserId = course.UserId,
-                Description = course.Description
+                Description = course.Description,
+                Picture = course.Picture
             };
             return View(courseUpdateInput);
         }
@@ -72,10 +75,10 @@ namespace WebApplication.Controllers
             var categories = await _catalogService.GetAllCategoryAsync();
             ViewBag.categoryList = new SelectList(categories, "Id", "Name", courseUpdateInput.Id);
 
-            if (ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return View();
 
             await _catalogService.UpdateCourseAsync(courseUpdateInput);
-            return RedirectToAction(nameof(Index), "Courses");
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(string id)

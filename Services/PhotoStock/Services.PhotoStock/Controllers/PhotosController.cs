@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Services.PhotoStock.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class PhotosController : CustomBaseController
     {
@@ -23,7 +23,7 @@ namespace Services.PhotoStock.Controllers
                 {
                     await photo.CopyToAsync(stream, cancellationToken);
                 }
-                var returnPath = "photos/" + photo.FileName;
+                var returnPath = photo.FileName;
 
                 PhotoDto photoDto = new() { Url = returnPath };
 
@@ -36,8 +36,7 @@ namespace Services.PhotoStock.Controllers
         public IActionResult PhotoDelete(string photoUrl)
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/photos", photoUrl);
-
-            if (!System.IO.File.Exists(path))
+            if (System.IO.File.Exists(path))
             {
                 return CreateActionResultInstance(Response<NoContent>.Fail("Photo not faund", 404));
             }
