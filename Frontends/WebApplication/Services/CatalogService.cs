@@ -29,7 +29,7 @@ namespace WebApplication.Services
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
             responseSuccess.Data.ForEach(x =>
             {
-                x.Picture = _photoHelper.GetPhotoStockUrl(x.Picture);
+                x.StcokPictureUrl = _photoHelper.GetPhotoStockUrl(x.Picture);
             });
 
             return responseSuccess.Data;
@@ -50,7 +50,7 @@ namespace WebApplication.Services
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
             responseSuccess.Data.ForEach(x =>
             {
-                x.Picture = _photoHelper.GetPhotoStockUrl(x.Picture);
+                x.StcokPictureUrl = _photoHelper.GetPhotoStockUrl(x.Picture);
             });
 
             return responseSuccess.Data;
@@ -61,7 +61,7 @@ namespace WebApplication.Services
             var response = await _httpClient.GetAsync($"courses/GetById/{courseId}");
             if (!response.IsSuccessStatusCode) return null;
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<CourseViewModel>>();
-            responseSuccess.Data.Picture = _photoHelper.GetPhotoStockUrl(responseSuccess.Data.Picture);
+            responseSuccess.Data.StcokPictureUrl = _photoHelper.GetPhotoStockUrl(responseSuccess.Data.Picture);
             return responseSuccess.Data;
         }
 

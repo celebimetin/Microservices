@@ -1,0 +1,28 @@
+﻿@model CourseViewModel
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Kurs Detayı</h4>
+<hr />
+<div class="row">
+    <div class="col-md-9">
+        <div class="card">
+            <img src="@Model.StcokPictureUrl" class="card-img-top" />
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+                <p class="card-text">@Model.Description</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Fiyat : @Model.Price</h4>
+                <a href="#" class="btn btn-primary btn-block">Sepete Ekle</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -49,10 +49,10 @@ namespace WebApplication.Controllers
         public async Task<IActionResult> Update(string id)
         {
             var course = await _catalogService.GetByCourseId(id);
+            if (course == null) RedirectToAction(nameof(Index));
+
             var categories = await _catalogService.GetAllCategoryAsync();
 
-            if (course == null) RedirectToAction(nameof(Index));
-            
             ViewBag.categoryList = new SelectList(categories, "Id", "Name", course.Id);
 
             CourseUpdateInput courseUpdateInput = new()
