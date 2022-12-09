@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using WebApplication.Exceptions;
 using WebApplication.Services.Interfaces;
 
 namespace WebApplication.Controllers
@@ -23,6 +25,16 @@ namespace WebApplication.Controllers
         {
             var course = await _catalogService.GetByCourseId(id);
             return View(course);
+        }
+
+        public IActionResult Error()
+        {
+            var errorFeature = HttpContext.Features.Get<IExceptionHandlerFeature>();
+            if (errorFeature != null && errorFeature.Error is UnAuthorizeException)
+            {
+                return RedirectToAction(nameof(AuthController.Logout), "Auth");
+            }
+            return View();
         }
     }
 }
