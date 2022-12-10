@@ -5,12 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shared.Services;
-using System;
+using WebApplication.Extensions;
 using WebApplication.Handlers;
 using WebApplication.Helpers;
 using WebApplication.Models;
-using WebApplication.Services;
-using WebApplication.Services.Interfaces;
 
 namespace WebApplication
 {
@@ -25,8 +23,6 @@ namespace WebApplication
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
-
             services.AddHttpContextAccessor();
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
@@ -36,24 +32,7 @@ namespace WebApplication
             services.AddSingleton<PhotoHelper>();
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 
-            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
-            services.AddHttpClient<IIdentityService, IdentityService>();
-
-            services.AddHttpClient<ICatalogService, CatalogService>(options =>
-            {
-                options.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
-            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
-
-            services.AddHttpClient<IPhotoStockService, PhotoStockService>(options =>
-            {
-                options.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.PhotoStock.Path}");
-            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
-
-            services.AddHttpClient<IUserService, UserService>(options =>
-            {
-                options.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
-            })
-                .AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+            services.AddHttpClientService(Configuration);
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
             {
