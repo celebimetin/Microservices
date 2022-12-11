@@ -29,14 +29,17 @@ namespace Services.Basket
             var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.Authority = Configuration["IdentityServerUrl"];
+                options.Audience = "resource_basket";
+                options.RequireHttpsMetadata = false;
+            });
+
+            services.AddHttpContextAccessor();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
-            services.AddHttpContextAccessor();
 
-            services.AddControllers(options =>
-            {
-                options.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
-            });
             services.Configure<RedisSettings>(Configuration.GetSection("RedisSettings"));
             services.AddSingleton<RedisService>(sp =>
             {
@@ -45,11 +48,10 @@ namespace Services.Basket
                 redis.Connect();
                 return redis;
             });
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            
+            services.AddControllers(options =>
             {
-                options.Authority = Configuration["IdentityServerUrl"];
-                options.Audience = "resource_basket";
-                options.RequireHttpsMetadata = false;
+                options.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
             });
             services.AddSwaggerGen(c =>
             {

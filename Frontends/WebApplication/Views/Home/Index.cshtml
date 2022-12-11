@@ -22,9 +22,12 @@
                 <img src="@item.StcokPictureUrl" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
+                    <div class="badge bg-primary mb-2">Kategori : @item.Category.Name</div>
                     <p class="card-text">@item.ShortDescription</p>
                     <h5 class="text-primary">@item.Price TL</h5>
-                    <a class="btn btn-success" asp-controller="Home" asp-action="Detail" asp-route-id="@item.Id">Kurs Detay</a>
+                    <div>
+                        <a class="btn btn-success" asp-controller="Home" asp-action="Detail" asp-route-id="@item.Id">Kurs Detay</a>
+                    </div>
                 </div>
             </div>
         </div>

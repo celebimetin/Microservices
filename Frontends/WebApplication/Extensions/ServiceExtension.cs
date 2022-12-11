@@ -31,7 +31,7 @@ namespace WebApplication.Extensions
             {
                 options.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Basket.Path}");
             })
-                .AddHttpMessageHandler<ClientCredentialTokenHandler>();
+                .AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
             services.AddHttpClient<IUserService, UserService>(options =>
             {

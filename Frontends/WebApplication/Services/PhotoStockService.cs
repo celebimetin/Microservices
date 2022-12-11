@@ -29,7 +29,7 @@ namespace WebApplication.Services
             var multipartContent = new MultipartFormDataContent();
             multipartContent.Add(new ByteArrayContent(ms.ToArray()), "photo", randomFileName);
 
-            var response = await _httpClient.PostAsync("photos", multipartContent);
+            var response = await _httpClient.PostAsync("photos/PhotoSave", multipartContent);
             if (!response.IsSuccessStatusCode) return null;
 
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<PhotoViewModel>>();
@@ -38,7 +38,7 @@ namespace WebApplication.Services
 
         public async Task<bool> DeletePhoto(string photoUrl)
         {
-            var response = await _httpClient.DeleteAsync($"photos?photoUrl={photoUrl}");
+            var response = await _httpClient.DeleteAsync($"photos/PhotoDelete?photoUrl={photoUrl}");
             return response.IsSuccessStatusCode;
         }
     }

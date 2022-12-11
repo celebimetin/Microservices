@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Services.PhotoStock.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class PhotosController : CustomBaseController
     {

@@ -54,9 +54,11 @@ namespace WebApplication.Services
 
         public async Task<BasketViewModel> GetAsync()
         {
-            var response = await _httpClient.GetAsync("baskets/GetBasket");
-            if (!response.IsSuccessStatusCode) return null;
-
+            var response = await _httpClient.GetAsync("Baskets/GetBasket");
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
             var basketViewModel = await response.Content.ReadFromJsonAsync<Response<BasketViewModel>>();
             return basketViewModel.Data;
         }
