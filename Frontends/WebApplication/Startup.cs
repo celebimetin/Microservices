@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using WebApplication.Extensions;
 using WebApplication.Handlers;
 using WebApplication.Helpers;
 using WebApplication.Models;
+using WebApplication.Validators;
 
 namespace WebApplication
 {
@@ -42,7 +44,7 @@ namespace WebApplication
                 options.SlidingExpiration = true;
             });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CourseCreateInputValidator>());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

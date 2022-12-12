@@ -27,8 +27,8 @@ namespace WebApplication.Models.Baskets
             set { _basketItems = value; }
         }
 
-        public decimal TotalPrice => _basketItems.Sum(x => x.GetCurrentPrice);
-        public bool HasDiscount => !string.IsNullOrEmpty(DiscountCode) && DiscountRate.HasValue;
+        public decimal TotalPrice { get => _basketItems.Sum(x => x.GetCurrentPrice); }
+        public bool HasDiscount { get => !string.IsNullOrEmpty(DiscountCode) && DiscountRate.HasValue; }
 
         public void CancelDiscount()
         {

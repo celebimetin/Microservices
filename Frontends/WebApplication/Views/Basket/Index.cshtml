@@ -9,12 +9,12 @@
     <div class="col-md-8 offset-md-2">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title" Sepet></h5>
+                <h5 class="card-title">Sepet</h5>
                 @if (Model != null && Model.BasketItems.Any())
                 {
                     <table class="table table-striped">
                         <tr>
-                            <th>Kurs İsmi</th>
+                            <th>Kurs İsim</th>
                             <th>Kurs Fiyat</th>
                             <th></th>
                         </tr>
@@ -25,7 +25,8 @@
                                 <td>@item.CourseName</td>
                                 <td>@item.GetCurrentPrice TL</td>
                                 <td>
-                                    <a asp-controller="Basket" asp-action="RemoveBasketItem" asp-route-courseId="@item.CourseId">Sil</a>
+                                    <a asp-controller="Basket" asp-action="RemoveBasketItem" 
+                                       asp-route-courseId="@item.CourseId">Sil</a>
                                 </td>
                             </tr>
                         }
@@ -37,7 +38,7 @@
                             </tr>
                         }
                         <tr>
-                            <td>@(Model.HasDiscount?"İndirim fiyat":"Toplam fiyat")</td>
+                            <td>@(Model.HasDiscount ? "İndirim fiyat" : "Toplam fiyat")</td>
                             <th colspan="2">@Model.TotalPrice TL</th>
                         </tr>
                     </table>
