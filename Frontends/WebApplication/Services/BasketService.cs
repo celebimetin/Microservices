@@ -31,9 +31,8 @@ namespace WebApplication.Services
             }
             else
             {
-                var a = new BasketViewModel();
-                a.BasketItems.Add(basketItemViewModel);
-                await SaveOrUpdateAsync(a);
+                basket = new BasketViewModel();
+                basket.BasketItems.Add(basketItemViewModel);
             }
             await SaveOrUpdateAsync(basket);
         }

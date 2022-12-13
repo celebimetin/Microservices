@@ -6,10 +6,14 @@ namespace WebApplication.Models.Baskets
 {
     public class BasketViewModel
     {
+        private List<BasketItemViewModel> _basketItems;
+        public BasketViewModel()
+        {
+            _basketItems = new List<BasketItemViewModel>();
+        }
         public string UserId { get; set; }
         public string DiscountCode { get; set; }
-        public int? DiscountRate { get; set; }
-        private List<BasketItemViewModel> _basketItems { get; set; }
+        public int? DiscountRate { get; set; }    
         public List<BasketItemViewModel> BasketItems
         {
             get
@@ -26,16 +30,13 @@ namespace WebApplication.Models.Baskets
             }
             set { _basketItems = value; }
         }
-
         public decimal TotalPrice { get => _basketItems.Sum(x => x.GetCurrentPrice); }
         public bool HasDiscount { get => !string.IsNullOrEmpty(DiscountCode) && DiscountRate.HasValue; }
-
         public void CancelDiscount()
         {
             DiscountCode = null;
             DiscountRate = null;
         }
-
         public void ApplyDiscount(string code, int rate)
         {
             DiscountCode = code;
