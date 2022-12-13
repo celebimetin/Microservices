@@ -42,13 +42,12 @@ namespace WebApplication.Services
         {
             await CancelApplyDiscount();
             var basket = await GetAsync();
-            if (basket == null || basket.DiscountCode == null) return false;
+            if (basket == null) return false;
 
             var hasDiscount = await _discountService.GetDiscount(discountCode);
             if (hasDiscount == null) return false;
 
-            basket.DiscountRate = hasDiscount.Rate;
-            basket.DiscountCode = hasDiscount.Code;
+            basket.ApplyDiscount(hasDiscount.Code, hasDiscount.Rate);
             await SaveOrUpdateAsync(basket);
             return true;
         }
@@ -57,7 +56,8 @@ namespace WebApplication.Services
         {
             var basket = await GetAsync();
             if (basket == null || basket.DiscountCode == null) return false;
-            basket.DiscountCode = null;
+
+            basket.CancelDiscount();
             await SaveOrUpdateAsync(basket);
             return true;
         }

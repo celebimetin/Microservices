@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApplication.Models.Baskets;
+using WebApplication.Models.Discounts;
 using WebApplication.Services.Interfaces;
 
 namespace WebApplication.Controllers
@@ -40,6 +42,23 @@ namespace WebApplication.Controllers
         public async Task<IActionResult> RemoveBasketItem(string courseId)
         {
             await _basketService.RemoveBasketItemAsync(courseId);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> ApplyDiscount(DiscountApplyInput discountApplyInput)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["discountErrors"] = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).First();
+            }
+            var discountStatus = await _basketService.ApplyDiscount(discountApplyInput.Code);
+            TempData["discountStatus"] = discountStatus;
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> CancelApplyDiscount()
+        {
+            await _basketService.CancelApplyDiscount();
             return RedirectToAction(nameof(Index));
         }
     }
