@@ -33,6 +33,12 @@ namespace WebApplication.Extensions
             })
                 .AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
+            services.AddHttpClient<IDiscountService, DiscountService>(options =>
+            {
+                options.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Discount.Path}");
+            })
+                .AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
             services.AddHttpClient<IUserService, UserService>(options =>
             {
                 options.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
