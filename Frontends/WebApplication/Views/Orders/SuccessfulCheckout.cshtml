@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewData["Title"] = "SuccessfulCheckout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="alert alert-info">
+    <p>Ödeme başarıyla tamamlandı</p>
+    <p>Sipariş no : @ViewBag.orderId</p>
+</div>
+<a class="btn btn-primary" asp-controller="Home" asp-action="Index">Anasayfa</a>

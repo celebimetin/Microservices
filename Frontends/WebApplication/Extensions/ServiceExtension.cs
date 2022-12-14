@@ -39,6 +39,18 @@ namespace WebApplication.Extensions
             })
                 .AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
+            services.AddHttpClient<IPaymentService, PaymentService>(options =>
+            {
+                options.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Payment.Path}");
+            })
+                .AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+            services.AddHttpClient<IOrderService, OrderService>(options =>
+            {
+                options.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Order.Path}");
+            })
+                .AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
             services.AddHttpClient<IUserService, UserService>(options =>
             {
                 options.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
