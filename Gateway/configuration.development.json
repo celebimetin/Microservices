@@ -90,7 +90,7 @@
         "AllowedScopes": [ "order_fullpermission" ]
       }
     },
-    //Payment.API
+    //FakePayment.API
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
@@ -100,7 +100,7 @@
           "Port": 5016
         }
       ],
-      "UpstreamPathTemplate": "/services/payment/{everything}",
+      "UpstreamPathTemplate": "/services/fakepayment/{everything}",
       "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ],
       "UpstreamScheme": "http",
       "AuthenticationOptions": {

@@ -32,7 +32,7 @@ namespace WebApplication.Controllers
             {
                 var basket = await _basketService.GetAsync();
                 ViewBag.basket = basket;
-                ViewBag.eror = orderStatus.Error;
+                ViewBag.error = orderStatus.Error;
                 return View();
             }
 
