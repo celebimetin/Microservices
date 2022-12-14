@@ -19,7 +19,7 @@ namespace WebApplication.Services
         public async Task<DiscountViewModel> GetDiscount(string discountCode)
         {
             var response = await _httpClient.GetAsync($"discounts/GetByCode/{discountCode}");
-            if (response.IsSuccessStatusCode) return null;
+            if (!response.IsSuccessStatusCode) return null;
 
             var discount = await response.Content.ReadFromJsonAsync<Response<DiscountViewModel>>();
             return discount.Data;
