@@ -22,20 +22,20 @@ namespace Services.Discount.Services
 
         public async Task<Response<List<Models.Discount>>> GetAllAsync()
         {
-            var discounts = await _dbConnection.QueryAsync<Models.Discount>("select * from discount");
+            var discounts = await _dbConnection.QueryAsync<Models.Discount>("select * from discountdb");
             return Response<List<Models.Discount>>.Success(discounts.ToList(), 200);
         }
 
         public async Task<Response<Models.Discount>> GetByIdAsync(int id)
         {
-            var discount = (await _dbConnection.QueryAsync<Models.Discount>("select * from discount where id=@Id", new { Id = id })).SingleOrDefault();
+            var discount = (await _dbConnection.QueryAsync<Models.Discount>("select * from discountdb where id=@Id", new { Id = id })).SingleOrDefault();
             if (discount == null) return Response<Models.Discount>.Fail("Discount not found", 404);
             return Response<Models.Discount>.Success(discount, 200);
         }
 
         public async Task<Response<Models.Discount>> GeyByCodeAndUserIdAsync(string userId, string code)
         {
-            var discounts = await _dbConnection.QueryAsync<Models.Discount>("select * from discount where userid=@UserId and code=@Code", new { UserId = userId, Code = code });
+            var discounts = await _dbConnection.QueryAsync<Models.Discount>("select * from discountdb where userid=@UserId and code=@Code", new { UserId = userId, Code = code });
             var hasDiscount = discounts.FirstOrDefault();
             if (hasDiscount == null) Response<Models.Discount>.Fail("Discount not found", 404);
             return Response<Models.Discount>.Success(hasDiscount, 200);
@@ -43,21 +43,21 @@ namespace Services.Discount.Services
 
         public async Task<Response<NoContent>> CreateAsync(Models.Discount discount)
         {
-            var createStatus = await _dbConnection.ExecuteAsync("INSERT INTO discount(userid,rate,code) VALUES(@UserId,@Rate,@Code)", discount);
+            var createStatus = await _dbConnection.ExecuteAsync("INSERT INTO discountdb(userid,rate,code) VALUES(@UserId,@Rate,@Code)", discount);
             if (createStatus > 0) return Response<NoContent>.Success(204);
             return Response<NoContent>.Fail("An error occurred while adding", 500);
         }
 
         public async Task<Response<NoContent>> UpdateAsync(Models.Discount discount)
         {
-            var updateStatus = await _dbConnection.ExecuteAsync("UPDATE discount SET userid=@UserId, code=@Code, rate=@Rate where id=@Id", new { Id = discount.Id, UserId = discount.UserId, Code = discount.Code, Rate = discount.Rate });
+            var updateStatus = await _dbConnection.ExecuteAsync("UPDATE discountdb SET userid=@UserId, code=@Code, rate=@Rate where id=@Id", new { Id = discount.Id, UserId = discount.UserId, Code = discount.Code, Rate = discount.Rate });
             if (updateStatus > 0) return Response<NoContent>.Success(204);
             return Response<NoContent>.Fail("Discount not found", 404);
         }
 
         public async Task<Response<NoContent>> DeleteAsync(int id)
         {
-            var deleteStatus = await _dbConnection.ExecuteAsync("DELETE from discount where id=@Id", new { Id = id });
+            var deleteStatus = await _dbConnection.ExecuteAsync("DELETE from discountdb where id=@Id", new { Id = id });
             return deleteStatus > 0
                 ? Response<NoContent>.Success(204)
                 : Response<NoContent>.Fail("Discount not found", 404);
