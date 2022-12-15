@@ -86,7 +86,7 @@ namespace WebApplication.Services
             return response.Data;
         }
 
-        public async Task SuspendOrder(CheckoutInfoInput checkOutInfoInput)
+        public async Task<OrderSuspendViewModel> SuspendOrder(CheckoutInfoInput checkOutInfoInput)
         {
             var basket = await _basketService.GetAsync();
             var orderCreateInput = new OrderCreateInput()
@@ -121,18 +121,18 @@ namespace WebApplication.Services
                 Expiration = checkOutInfoInput.Expiration,
                 CVV = checkOutInfoInput.CVV,
                 TotalPrice = basket.TotalPrice,
-                //Order = orderCreateInput
+                Order = orderCreateInput
             };
 
             var responsePayment = await _paymentService.ReceivePayment(paymentInfoInput);
 
             if (!responsePayment)
             {
-                //return new OrderSuspendViewModel() { Error = "Ödeme alınamadı", IsSuccessful = false };
+                return new OrderSuspendViewModel() { Error = "Ödeme alınamadı", IsSuccessful = false };
             }
 
             await _basketService.DeleteAsync();
-            //return new OrderSuspendViewModel() { IsSuccessful = true };
+            return new OrderSuspendViewModel() { IsSuccessful = true };
         }
     }
 }

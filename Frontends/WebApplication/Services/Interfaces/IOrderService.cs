@@ -18,7 +18,7 @@ namespace WebApplication.Services.Interfaces
         /// </summary>
         /// <param name="checkOutInfoInput"></param>
         /// <returns></returns>
-        Task SuspendOrder(CheckoutInfoInput checkOutInfoInput);
+        Task<OrderSuspendViewModel> SuspendOrder(CheckoutInfoInput checkOutInfoInput);
         Task<List<OrderViewModel>> GetOrder();
     }
 }

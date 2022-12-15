@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using WebApplication.Models.Orders;
 using WebApplication.Services.Interfaces;
@@ -27,22 +28,36 @@ namespace WebApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> Checkout(CheckoutInfoInput checkoutInfoInput)
         {
-            var orderStatus = await _orderService.CreateOrder(checkoutInfoInput);
-            if (!orderStatus.IsSuccessful)
+            //1.ci yol senkron iletişim istek atılıp cevap beklenir
+            //var orderStatus = await _orderService.CreateOrder(checkoutInfoInput);
+
+            //2.ci yol asenkron iletişim istek atılıp cevap beklenmez
+            var orderSuspendStatus = await _orderService.SuspendOrder(checkoutInfoInput);
+
+            if (!orderSuspendStatus.IsSuccessful)
             {
                 var basket = await _basketService.GetAsync();
                 ViewBag.basket = basket;
-                ViewBag.error = orderStatus.Error;
+                ViewBag.error = orderSuspendStatus.Error;
                 return View();
             }
 
-            return RedirectToAction(nameof(SuccessfulCheckout), new { orderId = orderStatus.OrderId });
+            //1.ci yol senkron iletişim istek atılıp cevap beklenir
+            //return RedirectToAction(nameof(SuccessfulCheckout), new { orderId = orderStatus.OrderId });
+
+            //2.ci yol asenkron iletişim istek atılıp cevap beklenmez
+            return RedirectToAction(nameof(SuccessfulCheckout), new { orderId = new Random().Next(1, 1000) });
         }
 
         public IActionResult SuccessfulCheckout(int orderId)
         {
             ViewBag.orderId = orderId;
             return View();
+        }
+
+        public async Task<IActionResult> CheckoutHistory()
+        {
+            return View(await _orderService.GetOrder());
         }
     }
 }
