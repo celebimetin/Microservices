@@ -7,14 +7,14 @@ namespace Services.Order.Domain
 {
     public class Order : Entity, IAggregateRoot
     {
-        public Order() { }
-
         public string BuyerId { get; private set; }
         public DateTime CreatedDate { get; private set; }
         public Address Address { get; private set; }
 
         private readonly List<OrderItem> _orderItems;
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
+
+        public Order() { }
 
         public Order(string buyerId, Address address)
         {

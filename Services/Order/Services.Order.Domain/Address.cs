@@ -5,8 +5,6 @@ namespace Services.Order.Domain
 {
     public class Address : ValueObject
     {
-        public Address() { }
-
         public string Province { get; private set; }
         public string District { get; private set; }
         public string Street { get; private set; }

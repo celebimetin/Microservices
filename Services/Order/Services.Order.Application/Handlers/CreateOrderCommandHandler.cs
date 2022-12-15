@@ -29,8 +29,8 @@ namespace Services.Order.Application.Handlers
             });
 
             await _dbContext.Orders.AddAsync(newOrder);
-            var result = await _dbContext.SaveChangesAsync();
-            return Response<CreatedOrderDto>.Success(new CreatedOrderDto { OrderId = newOrder.Id }, result);
+            await _dbContext.SaveChangesAsync();
+            return Response<CreatedOrderDto>.Success(new CreatedOrderDto { OrderId = newOrder.Id }, 200);
         }
     }
 }
