@@ -88,10 +88,7 @@ namespace Services.Catalog.Services
             updateCourse.CreatedTime = DateTime.Now;
 
             var result = await _courseCollection.FindOneAndReplaceAsync(x => x.Id == courseUpdateDto.Id, updateCourse);
-            if (result == null)
-            {
-                return Response<NoContent>.Fail("Course not found", 404);
-            }
+            if (result == null) return Response<NoContent>.Fail("Course not found", 404);
 
             await _publishEndpoint.Publish<CourseNameChangedEvent>(new CourseNameChangedEvent
             {

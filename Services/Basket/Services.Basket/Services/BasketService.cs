@@ -17,10 +17,8 @@ namespace Services.Basket.Services
         public async Task<Response<BasketDto>> GetBasketAsync(string userId)
         {
             var existBasket = await _redisService.GetDatabase().StringGetAsync(userId);
-            if (string.IsNullOrEmpty(existBasket))
-            {
-                return Response<BasketDto>.Fail("Basket not found", 404);
-            }
+            if (string.IsNullOrEmpty(existBasket)) return Response<BasketDto>.Fail("Basket not found", 404);
+
             return Response<BasketDto>.Success(JsonSerializer.Deserialize<BasketDto>(existBasket), 200);
         }
 
