@@ -54,7 +54,7 @@ namespace IdentityServer
             {
                 new Client
                 {
-                    ClientName = "Web Client",
+                    ClientName = "Client Credentials",
                     ClientId = "ClientCredentials",
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
@@ -68,7 +68,7 @@ namespace IdentityServer
                 },
                 new Client
                 {
-                    ClientName = "Web Client For User",
+                    ClientName = "Resource Owner Password",
                     ClientId = "ResourceOwnerPassword",
                     AllowOfflineAccess = true,
                     ClientSecrets = { new Secret("secret".Sha256()) },
@@ -81,9 +81,7 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.OfflineAccess,
                         IdentityServerConstants.LocalApi.ScopeName,
                         "basket_fullpermission",
-                        "discount_fullpermission",
                         "order_fullpermission",
-                        "payment_fullpermission",
                         "gateway_fullpermission",
                         "roles"
                     },
@@ -91,7 +89,20 @@ namespace IdentityServer
                     RefreshTokenExpiration = TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
                     RefreshTokenUsage = TokenUsage.ReUse
-                }
+                },
+                new Client
+                {
+                    ClientName = "Token Exchange Client",
+                    ClientId = "TokenExchangeClient",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = new[]{ "urn:ietf:params:oauth:grant-type:token:exchange" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        "discount_fullpermission",
+                        "payment_fullpermission"
+                    }
+                },
             };
     }
 }

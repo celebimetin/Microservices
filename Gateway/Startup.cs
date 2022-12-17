@@ -1,3 +1,4 @@
+using Gateway.DelegateHandlers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,13 +20,15 @@ namespace Gateway
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<TokenExchangeDelegateHandler>();
+
             services.AddAuthentication().AddJwtBearer("GatewayAuthenticationScheme", options =>
             {
                 options.Authority = Configuration["IdentityServerUrl"];
                 options.Audience = "resource_gateway";
                 options.RequireHttpsMetadata = false;
             });
-            services.AddOcelot();
+            services.AddOcelot().AddDelegatingHandler<TokenExchangeDelegateHandler>();
         }
 
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)

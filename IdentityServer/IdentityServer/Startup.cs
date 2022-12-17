@@ -49,8 +49,10 @@ namespace IdentityServer
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
 
-            builder.AddDeveloperSigningCredential();
+            
             builder.AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>();
+            builder.AddExtensionGrantValidator<TokenExchangeExtensionGrantValidator>();
+            builder.AddDeveloperSigningCredential();
 
             services.AddAuthentication()
                 .AddGoogle(options =>
