@@ -54,7 +54,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - RabbitMQUrl=rabbitmq
-      - IdentityServerURL=http://identityserver.api
+      - IdentityServerUrl=http://identityserver.api
       - DatabaseSettings:ConnectionString=mongodb://catalogdb:27017
     ports:
       - "5011:80"
@@ -65,7 +65,7 @@ services:
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection=Server=identitydb,1433;Database=IdentityDb; User=sa; Password=Password12*"
+      - "ConnectionStrings:DefaultConnection=Server=identitydb,1433;Database=IdentityServerDB; User=sa; Password=Password123."
     ports:
       - "5001:80"
     depends_on:
