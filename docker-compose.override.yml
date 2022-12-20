@@ -90,7 +90,7 @@ services:
       - "5012:80"
     volumes:
       - type: bind
-        source: C:\Users\f-cak\Desktop\photos
+        source: C:\Users\mcelebi\Documents\Visual Studio 2019\Projects\Images
         target: /app/wwwroot/photos
   discount.api:
     container_name: discount.api
