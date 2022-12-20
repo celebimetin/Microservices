@@ -97,7 +97,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - IdentityServerUrl=http://identityserver.api
-      - "ConnectionStrings:PostgreSql=User ID=admin; Password=Password12*; Server=discountdb; Port=5432;Database=discountdb;Integrated Security=true;Pooling=true"
+      - "ConnectionStrings:PostgreSql=User ID=admin; Password=Password123.; Server=discountdb; Port=5432;Database=postgres;Integrated Security=true;Pooling=true"
     ports:
       - "5014:80"
     depends_on:
