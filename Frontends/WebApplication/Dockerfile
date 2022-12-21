@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim as build
 WORKDIR /app
 EXPOSE 80
+COPY Shared/Shared/*.csproj Shared/Shared/
 COPY Frontends/WebApplication/*.csproj Frontends/WebApplication/
 RUN dotnet Frontends/WebApplication/*.csproj
 COPY .. /
