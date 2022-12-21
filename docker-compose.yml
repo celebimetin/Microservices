@@ -56,7 +56,7 @@ services:
     image: aspnetcoremvc.web_image
     build:
       context: .
-      dockerfile: Frontends/FreeCourse.Web/Dockerfile
+      dockerfile: Frontends/WebApplication/Dockerfile
 volumes:
   catalogdb_volume:
   discount_volume:

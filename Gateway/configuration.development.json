@@ -1,6 +1,6 @@
 {
   "Routes": [
-    //Catalog.API
+    
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
@@ -18,7 +18,7 @@
         "AllowedScopes": [ "catalog_fullpermission" ]
       }
     },
-    //PhotoStcok.API
+    
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
@@ -36,7 +36,7 @@
         "AllowedScopes": [ "photo_stock_fullpermission" ]
       }
     },
-    //Basket.API
+    
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
@@ -54,7 +54,7 @@
         "AllowedScopes": [ "basket_fullpermission" ]
       }
     },
-    //Discount.API
+    
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
@@ -72,7 +72,7 @@
         "AllowedScopes": [ "discount_fullpermission" ]
       }
     },
-    //Order.API
+    
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
@@ -90,7 +90,7 @@
         "AllowedScopes": [ "order_fullpermission" ]
       }
     },
-    //FakePayment.API
+    
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
