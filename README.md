@@ -6,7 +6,7 @@ Microservices :
 
 Catalog Microservice
 
-Kurslarımız ile ilgili bilgilerin tutulmasından ve sunulmasından sorumlu olacak mikroservisimiz.
+Kurslarımız ile ilgili bilgilerin tutulmasından ve sunulmasından sorumlu olacak mikroservice
 
     MongoDb (Veritabanı)
 
@@ -16,23 +16,23 @@ Kurslarımız ile ilgili bilgilerin tutulmasından ve sunulmasından sorumlu ola
 
 Basket Microservice
 
-Sepet işlemlerinden sorumlu olacak mikroservisimiz.
+Sepet işlemlerinden sorumlu olacak mikroservice
 
     RedisDB(Veritabanı)
 
 Discount Microservice
 
-Kullanıcıya tanımlanacak indirim kuponlarından sorumlu olacak mikroservisimiz.
+Kullanıcıya tanımlanacak indirim kuponlarından sorumlu olacak mikroservice
 
     PostgreSQL(Veritabanı)
 
 Order Microservice
 
-Sipariş işlemlerinden sorumlu olacak mikroservisimiz.
+Sipariş işlemlerinden sorumlu olacak mikroservice
 
-Bu mikroservisimizde Domain Driven Design yaklaşımını kullanarak geliştiriyor olacağız.
+Bu mikroservisimizde Domain Driven Design yaklaşımını kullanarak geliştirildi
 
-Bu mikroservisimizde CQRS tasarım kalıbını uygulamak için MediatR kütüphanesini kullanıyor olacağız.
+Bu mikroservisimizde CQRS tasarım kalıbını uygulamak için MediatR kütüphanesini kullanıldı.
 
     Sql Server(Veritabanı)
 
@@ -42,17 +42,17 @@ Bu mikroservisimizde CQRS tasarım kalıbını uygulamak için MediatR kütüpha
 
 FakePayment Microservice
 
-Ödeme işlemlerinden sorumlu olacak mikroservisimiz.
+Ödeme işlemlerinden sorumlu olacak mikroservice
 
 IdentityServer Microservice
 
     Sql Server(Veritabanı)
 
-Kullanıcı dataların tutulmasından,token ve refreshtoken üretilmesinden sorumlu olacak microservisimiz.
+Kullanıcı dataların tutulmasından,token ve refreshtoken üretilmesinden sorumlu olacak mikroservice
 
 PhotoStock Microservice
 
-Kurs fotograflarının tutulmasından ve sunulmasından sorumlu olacak mikroservisimiz.
+Kurs fotograflarının tutulmasından ve sunulmasından sorumlu olacak mikroservice
 
 API Gateway
 
@@ -60,9 +60,9 @@ API Gateway
 
 Message Broker
 
-    Mesaj kuyruk sistemi olarak RabbitMQ kullanıyor olacağız.
+    Mesaj kuyruk sistemi olarak RabbitMQ kullanıldı
 
-    RabbitMQ ile haberleşmek için MassTransit kütüphanesini kullanıyor olacağız.
+    RabbitMQ ile haberleşmek için MassTransit kütüphanesini kullanıldı
 
     RabbitMQ (MassTransit Library)
 
@@ -76,4 +76,4 @@ Identity Server
 
 Asp.Net Core MVC Microservice
 
-Microservice'lerden almış olduğu dataları kullanıcıya gösterecek ve kullanıcı ile etkileşime geçmekten sorumlu olacak UI mikroservisimiz
+Microservice'lerden almış olduğu dataları kullanıcıya gösterecek ve kullanıcı ile etkileşime geçmekten sorumlu olacak UI mikroservice
